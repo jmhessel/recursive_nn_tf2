@@ -8,10 +8,10 @@ Recursive neural networks are similar to recurrent neural networks in the sense 
 
 ## What features are supported?
 
-- Make your own Tree recursive nets! A base class that can be extended by overriding the `_combine_inner` function. See the in-line comments in `recursive_nn.py` for info about inputs/outputs.
 - Support for (dynamically) passing features to each node of the tree.
 - An implementation of Child-Sum Tree-LSTMs from Tai, Socher, and Manning (2015). (`tree_lstm.py`)
 - See the minimal `main` in both files for API examples.
+- Make your own tree recursive nets! A base class that can be extended by overriding the `_combine_inner` function. See the in-line comments in `recursive_nn.py` for info about inputs/outputs.
 
 ## What is required?
 
