@@ -14,7 +14,7 @@ import tensorflow as tf
 
 class ChildSumLSTMTreeLayer(recursive_nn.SimpleTreeLayer):
     ''' Note that self.dim is actually 3*the inside dimension,
-    because this model outputs both h and o.'''
+    because this model outputs h, c, and o.'''
     def build(self, input_shape):
         assert self.dim % 3 == 0, 'Dim must be a multiple of 3!'
 
