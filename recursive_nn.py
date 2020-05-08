@@ -18,10 +18,16 @@ class SimpleTreeLayer(tf.keras.layers.Layer):
         self.input_transform = tf.keras.layers.Dense(self.dim, activation='sigmoid')
 
     def compute_output_shape(self, input_shape):
-        if self.just_root_output:
-            return (input_shape[0], self.dim)
+        if len(input_shape) == 2:
+            if self.just_root_output:
+                return (input_shape[0][0], self.dim)
+            else:
+                return (input_shape[0][0], input_shape[0][1], self.dim)
         else:
-            print(input_shape)
+            if self.just_root_output:
+                return (input_shape[0], self.dim)
+            else:
+                return (input_shape[0], input_shape[1], self.dim)
 
     def _combine_inner(self, reprs, features):
         '''Combination function:
@@ -193,6 +199,16 @@ def main():
 
     # padding nodes will be assigned zero
     print(res_features_ignore_root_all)
+
+    # you can use layers in models too
+
+    tree_input = tf.keras.layers.Input((None, 2), dtype='int32')
+    tree_features_input = tf.keras.layers.Input((None, 100), dtype='float32')
+    model_layer = SimpleTreeLayer(args.dim, dynamic=True, just_root_output=False)
+    res = model_layer([tree_input, tree_features_input])
+    model = tf.keras.models.Model(inputs=[tree_input, tree_features_input],
+                                  outputs=res)
+    model.summary()
 
 
 
